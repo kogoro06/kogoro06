@@ -8,13 +8,10 @@ on:
   workflow_dispatch:
 
   # run on every push on the main branch
+  # don't forget to change if you're using 'master' branch
   push:
     branches:
     - main
-
-permissions:
-  contents: write
-
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -23,13 +20,13 @@ jobs:
       uses: lowlighter/metrics@latest
       with:
         filename: output/metrics.base.svg
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         base: header, activity, community, repositories, metadata
     - name: Most used (with details)
       uses: lowlighter/metrics@latest
       with:
         filename: output/details.svg
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         base: ""
         repositories_skipped: chatbot-ui, gitHub-readme-stats-clone, PL0-compiler
         plugin_languages: yes
@@ -43,7 +40,7 @@ jobs:
       uses: lowlighter/metrics@latest
       with:
         filename: output/metrics.plugin.achievements.compact.svg
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         base: ""
         plugin_achievements: yes
         plugin_achievements_only: >-
